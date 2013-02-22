@@ -10,10 +10,8 @@ class UniqueReview(MRJob):
 
     def extract_words(self, _, record):
         """Take in a record, filter by type=review, yield <word, review_id>"""
-        c=0
         if record['type'] == 'review':
             for word in WORD_RE.findall(record['text']):
-                #a = record['review_id']
                 yield [word.lower(), record['review_id']]
             ###
             # TODO: for each word in the review, yield the correct key,value
@@ -21,7 +19,6 @@ class UniqueReview(MRJob):
             # for word in ____:
             #   yield [ ___ , ___ ]
             ##/
-
     def count_reviews(self, word, review_ids):
         """Count the number of reviews a word has appeared in.  If it is a
         unique word (ie it has only been used in 1 review), output that review
@@ -29,12 +26,13 @@ class UniqueReview(MRJob):
 
         unique_reviews = set(review_ids)  # set() uniques an iterator
         if len(unique_reviews)==1:
-             yield [unique_reviews,1]
+             yield [list(unique_reviews)[0],1]
         ###
         # TODO: yield the correct pair when the desired condition is met:
         # if ___:
         #     yield [ ___ , ___ ]
         ##/
+
 
     def count_unique_words(self, review_id, unique_word_counts):
         """Output the number of unique words for a given review_id"""
@@ -56,13 +54,15 @@ class UniqueReview(MRJob):
     def select_max(self, stat, count_review_ids):
         """Given a list of pairs: [count, review_id], select on the pair with
         the maximum count, and output the result."""
-        yield [count_review_ids[1], max(count_review_ids)]
+        maxsum = max(count_review_ids)
+        yield [maxsum[1],maxsum[0]]
         ###
         # TODO: find the review with the highest count, yield the review_id and
         # the count. HINT: the max() function will compare pairs by the first
         # number
         #
         #/
+   
 
     def steps(self):
         """TODO: Document what you expect each mapper and reducer to produce:
@@ -70,9 +70,9 @@ class UniqueReview(MRJob):
         reducer1: <key, [values]>
         mapper2: ...
         """
-        return [self.mr(self.extract_words, self.count_reviews),
-                self.mr(reducer=self.count_unique_words),
-                self.mr(self.aggregate_max, self.select_max)]
+        return [self.mr(self.extract_words,self.count_reviews),
+         self.mr(reducer=self.count_unique_words),
+         self.mr(self.aggregate_max, self.select_max)]
 
 if __name__ == '__main__':
     UniqueReview.run()
