@@ -70,6 +70,17 @@ class UniqueReview(MRJob):
         reducer1: <key, [values]>
         mapper2: ...
         """
+        """
+        mapper1: <line, record> => <word, review_id>
+        reducer1: <unique_review_id,1>  uniqure review id is found from set that has 1 review id
+
+        mapper2: <identity mapper, does not ned to do anything>
+        reducer2:<word, sum of 1s for review ids>
+
+        mapper3: <review_id , unique word count> ==> <constant key, list of count and review id>
+        reducer2: <review_id , the list with maximum count>
+
+        """
         return [self.mr(self.extract_words,self.count_reviews),
          self.mr(reducer=self.count_unique_words),
          self.mr(self.aggregate_max, self.select_max)]
