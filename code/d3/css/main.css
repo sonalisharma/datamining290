@@ -1,0 +1,29 @@
+body {
+	 font: 14px sans-serif;
+			}
+
+			.axis path,
+			.axis line {
+			  fill: none;
+			  stroke: #000;
+			  shape-rendering: crispEdges;
+			}
+
+			.bar {
+			  fill: steelblue;
+			}
+
+			.x.axis path {
+			  display: none;
+			}
+
+
+			#helptext{
+				background:#B0C4DE;
+				float:right;
+				margin-right:450px;
+				height:80px;
+				width:200px;
+				 border-radius:15px;
+				 padding:20px;
+			}
