@@ -2,99 +2,26 @@
     <head>
         <title>Page Title</title>
     </head>
-     <script type="text/javascript" src="js/d3.min.js"></script>
-      <script src="js/jquery-1.9.1.min.js"></script>
+     
+ 
     <link rel="stylesheet" href="css/main.css">
 
     <body>
     	<p style="margin-left:250px;font-size:26px">This graph shows numbers of books rated by people of different ages</p>
     	<div id="helptext">
+    	<p> Display of values</p>
     	</div>
-        <script>
-
-        var margin = {top: 20, right: 20, bottom: 50, left: 80},
-   			 width = 960 - margin.left - margin.right,
-    		 height = 500 - margin.top - margin.bottom;
-
-
-    	var x = d3.scale.ordinal()
-   				 .rangeRoundBands([0, width], .1);
-
-		var xAxis = d3.svg.axis()
-				    .scale(x)
-				    .orient("bottom");
-
-    	var y = d3.scale.linear()
-    			.range([height, 0]);
-
-    	var yAxis = d3.svg.axis()
-				    .scale(y)
-				    .orient("left");
-
-		var svg = d3.select("body").append("svg")
-				    .attr("width", width + margin.left + margin.right)
-				    .attr("height", height + margin.top + margin.bottom)
-				  	.append("g")
-				    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
-	   
-					
-		d3.csv("data/input.csv", function(error, data) {
-
-					  console.log(data);
-					  x.domain(data.map(function(d) { return d.age; }));
-
-
-					  y.domain([0, d3.max(data, function(d) { return d.count; })]);
-
-					  svg.append("g")
-					      .attr("class", "x axis")
-					      .attr("transform", "translate(0," + height + ")")
-					      .call(xAxis)
-					      .append("text")
-					      .attr("x", 406)
-					      .attr("dy", "2.5em")
-					      .style("text-anchor", "end")
-					      .text("Age");
-
-					  svg.append("g")
-					      .attr("class", "y axis")
-					      .call(yAxis)
-					      .append("text")
-					      .attr("transform", "rotate(-90)")
-					      .attr("dy", "1em")
-					      .style("text-anchor", "end")
-					      .text("No.of books Rated");
-
-					  svg.selectAll(".bar")
-					      .data(data)
-					      .enter().append("rect")
-					      .attr("class", "bar")
-					      .attr("x", function(d) { return x(d.age); })
-					      .attr("width", x.rangeBand())
-					      .attr("y", function(d) { return y(d.count); })
-					      .attr("height", function(d) { return height - y(d.count); })
-					      .on("mouseover",function(d){
-					      	showText(d.age,d.count)
-					      });
-
-					      
-
-				});
-
-				function showText(age,count){
-					console.log(age);
-
-					var header =   jQuery('#helptext');  
-						header.html(''); 
-						header.append("Age:"+age+" <br> No.of Books Rated:"+count);
-						console.log("header",header);
-
-				}
-   			
-		   			
-
-     	</script>
-
+    	<div id="selection">
+    		<p>Select the age group to change data</p>
+	    	<ul id="select">
+	    		<li id="one">Age 1 - 19</li>
+	    		<li id="two">Age 20 - 50</li>
+	    		<li id="three">Age 51 - 99</li>
+	    	</ul>
+    	</div>
     </body>
+
+        <script src="js/jquery-1.9.1.min.js"></script>
+        <script type="text/javascript" src="js/d3.min.js"></script>
+        <script src="js/main.js"></script>
     </html>
