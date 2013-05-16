@@ -1,0 +1,18 @@
+opened sqlite3 command prompt using 
+
+sqlite3 Books.db
+
+/*Then ran the following commands to get data files*/
+
+.mode csv
+.output /Applications/XAMPP/xamppfiles/htdocs/d3/data/input1.csv
+select u.Age, count(distinct b.ISBN) as count from  BXUsers u join BXBooksRating b on b.UserID= u.UserID where age>0 and age<20 and rating>0 and location like'%usa%' and age != 37.8951466694  group by u.Age;
+
+.output /Applications/XAMPP/xamppfiles/htdocs/d3/data/input2.csv
+select u.Age, count(distinct b.ISBN) as count from  BXUsers u join BXBooksRating b on b.UserID= u.UserID where age>19 and age<51 and rating>0 and location like'%usa%' and age != 37.8951466694  group by u.Age;
+
+.output /Applications/XAMPP/xamppfiles/htdocs/d3/data/input3.csv
+select u.Age, count(distinct b.ISBN) as count from  BXUsers u join BXBooksRating b on b.UserID= u.UserID where age>50 and age<99 and rating>0 and location like'%usa%' and age != 37.8951466694  group by u.Age;
+
+
+
