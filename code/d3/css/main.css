@@ -1,0 +1,50 @@
+body {
+	 font: 14px sans-serif;
+			}
+
+			.axis path,
+			.axis line {
+			  fill: none;
+			  stroke: #000;
+			  shape-rendering: crispEdges;
+			}
+
+			.bar {
+			  fill: steelblue;
+			}
+
+			.x.axis path {
+			  display: none;
+			}
+
+
+			#helptext{
+				background:#B0C4DE;
+				float:left;
+				margin-right:350px;
+				margin-bottom:50px;
+				height:80px;
+				width:200px;
+				border-radius:15px;
+				padding:20px;
+			}
+
+			#selection{
+
+				background:#B0C4DE;
+				float:right;
+				margin-right:50px;
+				height:150px;
+				width:250px;
+				border-radius:15px;
+				padding:10px;
+
+			}
+
+			#select {
+				display:inline;
+
+			}
+			#select li {
+				margin:0 5 15 15;
+			}
